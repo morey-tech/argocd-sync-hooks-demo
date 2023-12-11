@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: sync-hooks
+  namespace: argocd
+spec:
+  destination:
+    name: kind
+    namespace: sync-hooks
+  project: default
+  source:
+    path: sync-hooks
+    repoURL: 'https://github.com/morey-tech/argocd-sync-hooks-demo'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
